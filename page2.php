@@ -3,6 +3,7 @@
 	$todays_evaluation=null;
 	$inserted_adj=null;
 	$adj_error=null;
+	$chosen_pic=null;
 	//meatball < > == <= >= !=;
 	//submit nupu vajutamise kontroll
 	if(isset($_POST["todays_adj_input"]))
@@ -10,7 +11,7 @@
 	{$todays_evaluation="<p>Tänane päev on <strong>".$_POST["adjective_input"]."</strong>.</p><hr>";
 	$inserted_adj=$_POST["adjective_input"];
 	}
-	else {$adj_error="palun kirjuta tänase päeva kohta omadussõna";}
+	else {$adj_error="Palun kirjuta tänase päeva kohta omadussõna!";}
 	}
 	$photo_dir="photos/";
 	$allowed_photo_types=["image/jpeg","image/png"];
@@ -25,10 +26,7 @@
 		{array_push($photo_files,$file);
 	}}}
 	$limit=count($photo_files);
-	$pic_num=mt_rand(0,$limit-1);
-	$pic_file=$photo_files[$pic_num];
-	$pic_html='<img src="'.$photo_dir.$pic_file.'" alt="Tallinna Ülikool">';
-	//; on eraldi kaskude jaoks {}-s ja {} tootab ;-na i guess
+		//; on eraldi kaskude jaoks {}-s ja {} tootab ;-na i guess
 	//var_dump($all_files); to display all da crap in dat folder
 	//<p>valida on järgmised fotod: <strong>f1.jpg</strong> jne.
 	$list_html="<ul>";
@@ -37,8 +35,14 @@
 	$list_html.="</ul>";
 	$photo_select_html='<select name="photo_select">'."\n";
 	for($i=0; $i<$limit; $i++)
-	{$photo_select_html.='<option value="'.$i.'">'.$photo_files[$i]."</option> \n";}
+	{$photo_select_html.='<option name="pic_chosen" value="'.$i.'">'.$photo_files[$i]."</option> \n";}
 	$photo_select_html.="</select>\n";
+	$pic_num=mt_rand(0,$limit-1);
+	if(isset($_POST["pic_choice"]))
+	{if(!empty($_POST["photo_select"]))
+	{$pic_num=$_POST["photo_select"];}}
+	$pic_file=$photo_files[$pic_num];
+	$pic_html='<img src="'.$photo_dir.$pic_file.'" alt="Tallinna Ülikool">';
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -52,7 +56,7 @@
 	<p>Õppetöö toimus <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
 	<hr>
 	<form method="POST">
-		<input type="text" name="adjective_input" placeholder="omadussõna tänase kohta" value="<?php echo $inserted_adj;?>">
+		<input type="text" name="adjective_input" placeholder="omadussõna tänasest" value="<?php echo $inserted_adj;?>">
 		<input type="submit" name="todays_adj_input" value="Salvesta">
 		<span><?php echo $adj_error ?>
 	</form>
