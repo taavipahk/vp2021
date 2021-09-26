@@ -29,18 +29,24 @@
 		//; on eraldi kaskude jaoks {}-s ja {} tootab ;-na i guess
 	//var_dump($all_files); to display all da crap in dat folder
 	//<p>valida on järgmised fotod: <strong>f1.jpg</strong> jne.
+	$pic_num=mt_rand(0,$limit-1);
+	//pildid listis
 	$list_html="<ul>";
 	for($i=0; $i<$limit; $i++)
 	{$list_html.="<li>".$photo_files[$i]."</li>";}
 	$list_html.="</ul>";
+	
+	if(isset($_POST["pic_choice"]))
+	{$pic_num=$_POST["photo_select"];}
+	//pildi valiku form
 	$photo_select_html='<select name="photo_select">'."\n";
 	for($i=0; $i<$limit; $i++)
-	{$photo_select_html.='<option name="pic_chosen" value="'.$i.'">'.$photo_files[$i]."</option> \n";}
+	{$photo_select_html.='<option value="'.$i.'"';
+		if($i==$pic_num)
+		{$photo_select_html.=" selected";}
+	$photo_select_html.=">".$photo_files[$i]."</option> \n";
+	}
 	$photo_select_html.="</select>\n";
-	$pic_num=mt_rand(0,$limit-1);
-	if(isset($_POST["pic_choice"]))
-	{if(!empty($_POST["photo_select"]))
-	{$pic_num=$_POST["photo_select"];}}
 	$pic_file=$photo_files[$pic_num];
 	$pic_html='<img src="'.$photo_dir.$pic_file.'" alt="Tallinna Ülikool">';
 ?>
@@ -62,7 +68,8 @@
 	</form>
 	<hr>
 	<?php echo $todays_evaluation;?>
-	<form method="POST"><?php echo $photo_select_html; ?>
+	
+	<form method="POST"><?php echo $photo_select_html;?>
 	<input type="submit" name="pic_choice" value="Vali pilt">
 	</form>
 	<?php echo $pic_html;
