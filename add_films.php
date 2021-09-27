@@ -10,7 +10,7 @@
 	$err_dir=null;
 	
 	
-	function test_input($data) #miski on mäda but idk what yet
+	function test_input($data) 
 		{
 		  $data = trim($data);
 		  $data = stripslashes($data);
@@ -28,23 +28,17 @@
 	{
 		if(!empty($_POST[$input]))
 		{
-			return test_input($_POST[$input]);
+			return test_input(filter_var($_POST[$input],FILTER_SANITIZE_STRING));
 		}	
 	}
 	
-	function errPlacer($missingInf)
+	function errPlacer($missingInf,$errVar,$errText)
 	{
-		global $err_tit,$err_gen,$err_stu,$err_dir;
+		
 		if(empty($_POST[$missingInf]))
 		{	
-			if($missingInf=="title_input")
-			{$err_tit=" Sisesta pealkiri!";}
-			elseif($missingInf=="genre_input")
-			{$err_gen=" Sisesta žanr!";}
-			elseif($missingInf=="studio_input")
-			{$err_stu=" Sisesta tootja nimi!";}
-			elseif($missingInf=="director_input")
-			{$err_dir=" Sisesta režissööri nimi!";}
+			$errVar="Sisesta ".$errText."!";
+			return $errVar;
 		}
 	}
 	#kas püütakse salvestada
@@ -60,10 +54,10 @@
 			if(!empty($saved_tit) and !empty($saved_gen) and !empty($saved_stu) and !empty($saved_dir) and !empty($_POST["year_input"]))
 			{$film_store_notice=store_film($saved_tit, $_POST["year_input"], $_POST["duration_input"], $saved_gen, $saved_stu, $saved_dir);}
 			else {
-				errPlacer("title_input");
-				errPlacer("genre_input");
-				errPlacer("studio_input");
-				errPlacer("director_input");
+				$err_tit=errPlacer("title_input",$err_tit,"pealkiri");
+				$err_gen=errPlacer("genre_input",$err_gen,"žanr");
+				$err_stu=errPlacer("studio_input",$err_stu,"tootja nimi");
+				$err_dir=errPlacer("director_input",$err_dir,"režissööri nimi");
 				$film_store_notice="Osa andmeid on puudu!";
 				}
 		}
