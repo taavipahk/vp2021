@@ -24,6 +24,9 @@
 	<hr>
 	<ul>
 	<li><a href="?logout=1">Logi välja</a></li>
+	<p>Ligipääsetav ainult sisselogitud kasutajale:</p>
+	<li><a href="add_films.php">Filmide lisamine</a></li>
+	<li><a href="list_films.php">Filmide tabel</a></li>
 	</ul>
 </body>
 </html>

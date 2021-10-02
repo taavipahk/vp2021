@@ -184,7 +184,7 @@
 	  <input name="password_input" id="password_input" type="password"><span><?php echo $password_error; ?></span><br>
 	  <label for="confirm_password_input">Korrake salasõna:</label><br>
 	  <input name="confirm_password_input" id="confirm_password_input" type="password"><span><?php echo $confirm_password_error; ?></span><br>
-	  <input name="user_data_submit" type="submit" value="Loo kasutaja"><span><?php echo $notice; ?></span>
+	  <input name="user_data_submit" type="submit" value="Loo kasutaja"><span><br><?php echo $notice; ?></span>
 	</form>
 	<hr>
 	<p>Tagasi <a href="page.php">avalehele</a>.</p>

@@ -3,7 +3,7 @@
 	session_start();
 	require_once("fnc_user.php");
 	require_once("../../config.php");
-	$author_name="Taavi Pahk";
+	$author_name="Mida Iganes";
 	$todays_evaluation=null;
 	$inserted_adj=null;
 	$adj_error=null;
@@ -54,9 +54,13 @@
 	$pic_file=$photo_files[$pic_num];
 	$pic_html='<img src="'.$photo_dir.$pic_file.'" alt="Tallinna Ülikool">';
 	//sisselogimine
+	$errorArr=["",""];
 	if(isset($_POST["login_submit"]))
 	{
-		sign_in($_POST["email_input"],$_POST["password_input"]);
+		if(!empty($_POST["email_input"]))
+		{
+			$errorArr=sign_in($_POST["email_input"],$_POST["password_input"]);
+		} else {$errorArr[0]="Kasutajatunnus jäi sisestamata..";}
 	}
 ?>
 <!DOCTYPE html>
@@ -71,10 +75,11 @@
 	<p>Õppetöö toimus <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
 	<hr>
 	<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-		<input type="email" name="email_input" placeholder="email e kasutajatunnus">
+		<input type="email" name="email_input" placeholder="email e kasutajatunnus" value="<?php echo $errorArr[1];?>">
 		<input type="password" name="password_input" placeholder="salasõna">
 		<input type="submit" name="login_submit" value="Logi sisse">
 	</form>
+	<?php echo $errorArr[0];?>
 	<p>Loo endale <a href="add_user.php">kasutajakonto</a>!</p>
 	<form method="POST">
 		<input type="text" name="adjective_input" placeholder="omadussõna tänasest" value="<?php echo $inserted_adj;?>">
