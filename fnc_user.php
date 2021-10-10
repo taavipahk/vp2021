@@ -52,6 +52,18 @@
 					$_SESSION["firstname"]=$firstname_from_db;
 					$_SESSION["lastname"]=$lastname_from_db;
 					$stmt->close();
+					$profinf=$conn->prepare("SELECT description, txtcolor, bgcolor  FROM vp_userprofiles WHERE userid=?");
+					echo $conn->error;
+					$profinf->bind_param("i",$id_from_db);
+					$profinf->bind_result($desc,$textcolor,$backgcolor);
+					$profinf->execute();
+					if($profinf->fetch())
+					{
+						$_SESSION["description"]=$desc;
+						$_SESSION["text_color"]=$textcolor;
+						$_SESSION["bg_color"]=$backgcolor;
+					} else {$_SESSION["text_color"]="#000000"; $_SESSION["bg_color"]="#FFFFFF"; $_SESSION["description"]="";}
+					$profinf->close();
 					$conn->close();
 					header("Location: home.php");
 					exit();
