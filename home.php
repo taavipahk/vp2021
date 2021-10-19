@@ -8,9 +8,11 @@
 	<ul>
 	<li><a href="?logout=1">Logi välja</a></li>
 	<p>Ligipääsetav ainult sisselogitud kasutajale:</p>
-	<li><a href="add_films.php">Filmide lisamine</a></li>
 	<li><a href="list_films.php">Filmide tabel</a></li>
+	<li><a href="list_people.php">Inimeste tabel</a></li>
 	<li><a href="user_profile.php">Profiil</a></li>
+	<li><a href="movie_relations.php">Filmi info sidumine</a></li>
+	<li><a href="add_info.php">Uue info lisamine! (EPIC)</a></li>
 	</ul>
 </body>
 </html>
