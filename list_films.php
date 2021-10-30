@@ -16,7 +16,12 @@ function min_to_hrsmin($integer)
 	}else{
 		$min=$integer%60;
 		$hrs=($integer-$min)/60;
-		$str=$hrs.' h '.$min.' min';
+		if($min==0)
+		{
+			$str=$hrs.' h';
+		}else{
+			$str=$hrs.' h '.$min.' min';
+		}
 	}
 	return $str;
 }

@@ -84,7 +84,7 @@
 	<hr>
 	<p><a href="home.php">Tagasi kodulehele</a></p>
 	<hr>
-	<h2>Filmi info seostamine</h2>
+	<h2>Filmi info seostamine</h2><hr>
 	<h3>Film, inimene ja tema roll</h3>
 		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<label for="person_input">Isik:</label>
@@ -110,7 +110,7 @@
 		<br>
 		<input type="submit" name="person_in_movie_submit" value="Sisesta">
 		</form>
-		<?php echo $notice;?>
+		<?php echo $notice;?><hr>
 	<h3>Näitleja foto lisamine</h3>
 		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
 		<select name="person_getting_photo_input">
@@ -126,7 +126,7 @@
 		<br>
 		<input type="submit" name="person_photo_submit" value="Lae pilt üles">
 		</form>
-		<span><?php echo $picnotice;?>
+		<span><?php echo $picnotice;?><hr>
 	<h3>Film ja žanr</h3>
 		<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 		<label for="movie_input2">Film</label>
