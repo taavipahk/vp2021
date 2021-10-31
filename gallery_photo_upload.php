@@ -6,7 +6,7 @@ require_once("fnc_general.php");
 require_once("fnc_photo_upload.php");
 require("page_header.php");
 $picnotice = null;
-$alttxt = null;
+$alt_text = null;
 $privacy = 1;
 $photo_orig_upload_dir = "upload_photos_orig/";
 $photo_norm_upload_dir = "upload_photos_normal/";
@@ -38,9 +38,10 @@ if (isset($_POST["photo_submit"])) {
 		$temp=null;
 		if(isset($_POST["alt_input"]) and !empty($_POST["alt_input"])){
 			$alt_text = test_input(filter_var($_POST["alt_input"], FILTER_SANITIZE_STRING));
-			if(empty($alt_text)){
-				$photo_error .= "Alternatiivtekst on lisamata!";
-			}
+			} else { $picnotice="Alternatiivtekst on puudu!"; }
+		} else {
+			$picnotice = "Pole faili";
+			return;
 		}
 
 		#filename
@@ -60,10 +61,8 @@ if (isset($_POST["photo_submit"])) {
 			$picnotice .= "Originaalfoto üleslaadimine ebaõnnestus";
 		}
 		$picnotice.="<br>".img_to_db($_SESSION["user_id"], $file_name, $alt_text, $privacy);
-	} else {
-		$picnotice = "Pole faili";
 	}
-}
+
 ?>
 <h2>Sisse logitud kui <?php echo $_SESSION["firstname"] . " " . $_SESSION["lastname"]; ?></h2>
 <p>See leht on valminud õppetöö raames ja ei sisalda mingisugust tõsiseltvõetavat sisu.</p>

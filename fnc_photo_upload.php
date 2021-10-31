@@ -60,10 +60,34 @@ function resize_image($img,$filetype,$format)
 	} else {
 		$photo_ratio = $image_h / $edited_max_h;
 	}
-	$new_w = round($image_w / $photo_ratio);
-	$new_h = round($image_h / $photo_ratio);
+	if($format=="norm")
+	{
+		$new_w = round($image_w / $photo_ratio);
+		$new_h = round($image_h / $photo_ratio);
+		$src_x = 0;
+		$src_y = 0;
+	} elseif($format=="thumb") {
+		$new_w=100;
+		$new_h=100;
+		if($image_w>$image_h)
+		{
+			$src_x=($image_w/2)-($image_h/2);
+			$src_y=0;
+			$image_w=$image_h;
+		}
+		elseif($image_h>$image_w)
+		{
+			$src_x=0;
+			$src_y=($image_h/2)-($image_w/2);
+			$image_h=$image_w;
+		}
+		elseif($image_h==$image_w) {
+			$src_x=0 ;
+			$src_y=0 ;
+		}
+	}
 	$new_tempimg = imagecreatetruecolor($new_w, $new_h);
-	imagecopyresampled($new_tempimg, $tempimg, 0, 0, 0, 0, $new_w, $new_h, $image_w, $image_h);
+	imagecopyresampled($new_tempimg, $tempimg, 0, 0, $src_x, $src_y, $new_w, $new_h, $image_w, $image_h);
 	if($format=="norm")
 	{
 		$watermark = imagecreatefrompng($watermark_file);
@@ -123,5 +147,4 @@ function img_to_db($uid,$fname,$alttxt,$priv)
 		$conn->close();
 		return $notice;
 }
-
-#veel on vaja teha funktsioon mis võtab thumbnaili jaoks actual 100x100 pildi mitte teeb suurema parameetri pildil 100ks
+?>
