@@ -1,5 +1,8 @@
 <?php
 	require("page_header.php");
+    $GLOBALS["orig_dir"] = "upload_photos_orig/";
+    $GLOBALS["norm_dir"] = "upload_photos_normal/";
+    $GLOBALS["thumb_dir"] = "upload_photos_thumb/";
 ?>
 	<h1><?php echo $_SESSION["firstname"]." ".$_SESSION["lastname"]; ?></h1>
 	<p>See leht on valminud õppetöö raames ja ei sisalda mingisugust tõsiseltvõetavat sisu.</p>
@@ -14,6 +17,8 @@
 	<li><a href="movie_relations.php">Filmi info sidumine</a></li>
 	<li><a href="add_info.php">Uue info lisamine! (EPIC)</a></li>
 	<li><a href="gallery_photo_upload.php">Fotode üleslaadimine</a></li>
+    <li><a href="gallery_public.php">Sisseloginud kasutajate jaoks avalike fotode galerii</a></li>
+    <li><a href="gallery_own.php">Minu oma galerii fotod</a></li>
 	</ul>
 </body>
 </html>
