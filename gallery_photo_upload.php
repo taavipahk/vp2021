@@ -1,11 +1,12 @@
 <?php
 #server_host server_user server_pass
 $author_name = "Mida Iganes";
+$to_head = '<script src="javascript/checkFileSize.js" defer></script>'."\n";
 require_once("../../config.php");
 require_once("fnc_general.php");
 require_once("fnc_photo_upload.php");
 require_once("classes/Photoupload.class.php");
-require("page_header.php");
+
 $picnotice = null;
 $alt_text = null;
 $privacy = 1;
@@ -77,6 +78,8 @@ if (isset($_POST["photo_submit"])) {
 		$picnotice.="<br>".img_to_db($_SESSION["user_id"], $file_name, $alt_text, $privacy);
 	}
 
+	require("page_header.php");
+
 ?>
 <h2>Sisse logitud kui <?php echo $_SESSION["firstname"] . " " . $_SESSION["lastname"]; ?></h2>
 <p>See leht on valminud õppetöö raames ja ei sisalda mingisugust tõsiseltvõetavat sisu.</p>
@@ -108,7 +111,8 @@ if (isset($_POST["photo_submit"])) {
 																			} ?>>
 	<label for="privacy_input_3">Avalik</label>
 	<br>
-	<input type="submit" name="photo_submit" value="Lae pilt üles">
+	<input type="submit" name="photo_submit" id="photo_submit" value="Lae pilt üles">
+	<span id="notice"></span>
 </form>
 <span><?php echo $picnotice; echo $photo_upload_notice;
 echo "<br>";
